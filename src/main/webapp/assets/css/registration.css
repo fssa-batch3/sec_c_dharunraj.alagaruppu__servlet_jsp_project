@@ -1,0 +1,162 @@
+@charset "ISO-8859-1";
+
+.main {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	height: 100vh;
+	align-items: center;
+	background-color: #f5f6ff;
+}
+
+a {
+	text-decoration: none;
+}
+
+.welcome {
+	width: 24%;
+	color: #1a237e;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	text-align: center;
+	background-color: white;
+	box-shadow: 1px 1px .1px #f2f2f2;
+	border-radius: 30px;
+	padding: 5% 0%;
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.welcome img {
+	width: 70%;
+	margin: 0px auto;
+	border-bottom-left-radius: 250px;
+	border-top-left-radius: 250px;
+	border-top-right-radius: 250px;
+	border-bottom-right-radius: 250px;
+	box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+}
+
+.welcome button {
+	background-color: #1a237e;
+	color: #ebedee;
+	font-weight: bolder;
+	width: 60%;
+	border-radius: 20px;
+	border: 0px;
+	padding: 4%;
+	margin: 50px auto;
+}
+
+.sign_up {
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 65%;
+	background-color: #f7f9fb;
+	background-color: white;
+	border-bottom-left-radius: 250px;
+	border-top-left-radius: 250px;
+	padding: .001%;
+}
+
+.sign_up h1 {
+	color: rgb(44, 44, 149);
+}
+
+form {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	width: 97%;
+	margin: 1% 0% 2% 0%;
+}
+
+.bottom_form {
+	display: flex;
+	justify-content: space-around;
+}
+
+.dob_child {
+	width: 60%;
+	display: flex;
+	justify-content: center;
+}
+
+.require {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.btm_btn {
+	display: flex;
+	justify-content: center;
+	padding: 2%;
+}
+
+.bottom_button {
+	background-color: #1a237e;
+	color: white;
+	padding: 10px;
+	width: 150px;
+	border: none;
+	font-size: 15px;
+	border-radius: 20px;
+	font-weight: bolder;
+	margin: 20px;
+	transition: all 2s;
+}
+
+button {
+	cursor: pointer;
+}
+
+.bottom_button:hover {
+	color: #ebedee;
+	font-weight: bolder;
+}
+
+input {
+	border: 0px;
+	box-shadow: 0px 1px rgb(85, 84, 84);
+	margin: 30px;
+	padding: 10px;
+	width: 33%;
+}
+
+input:focus {
+	outline: none;
+}
+
+input[type="radio"] {
+	box-shadow: none;
+	width: 50px;
+	margin: 0px;
+	font-size: 20px;
+}
+
+input[type="radio"][label] {
+	font-size: 15px;
+}
+
+input[type="date"] {
+	width: 40%;
+}
+
+.gender {
+	width: 30%;
+	margin: 30px;
+	padding: 10px;
+}
+
+#welcome_button , #register{
+	cursor: pointer;
+}
+
+.welcome h3 {
+	/* margin: 5%; */
+	padding: 3%;
+}

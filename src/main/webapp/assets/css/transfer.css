@@ -1,0 +1,129 @@
+@charset "ISO-8859-1";
+
+* {
+	color: #1a237e;
+}
+  
+header a, footer a {
+	text-decoration: none;
+}
+
+.right_contant {
+	display: flex;
+	justify-content: space-around;
+	align-items: start;
+	width: 100%;
+	margin: 2% 0% 4% 0%;
+	padding: 5%;
+	background-color: #f5f6ff;
+	/* font-family: 'Open Sans', sans-serif; */
+	font-weight: 400;
+	/* line-height: 1.2; */
+}
+
+.right_contant img {
+	width: 37%;
+	margin-top:50px;
+}
+
+.right_contant form {
+	background-color: white;
+	width: 30%;
+	padding: 3%;
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	border-radius: 25px;
+}
+
+.right_contant form h1 {
+	padding-bottom: 5%;
+}
+
+.right_contant form label {
+	display: block;
+	font-size: 20px;
+	margin: 1% auto;
+	font-weight: 500;
+}
+
+.right_contant form input, .right_contant form select {
+	width: 90%;
+	padding: 1%;
+	margin-bottom: 3%;
+}
+
+input:focus, select:focus {
+	outline: none;
+}
+
+.right_contant form button {
+	margin: 2% auto;
+	padding: 2.8% 10%;
+}
+
+.left_photo img {
+	margin: auto 0%;
+}
+
+.remarks {
+	height: 1px;
+}
+
+#delete_box {
+    position: absolute;
+    top: 350px;
+    left: 32%;
+    width: 500px;
+    height: 360px;
+    background-color: #1d222e;
+    border-radius: 20px;
+    text-align: center;
+    margin: 0%;
+    padding:2%;
+}
+
+
+#delete_file_text {
+    margin-top: 10px;
+    color:white;
+}
+#delete_box_btns {
+    display: flex;
+    justify-content: space-around;
+}
+
+#delete_box p{
+    color:white;
+    font-weight: bold;
+}
+
+#delete_box_btns button:first-child{
+    padding: 15px 50px;
+    background-color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+#delete_box_btns button:nth-child(2){
+    padding: 15px 50px;
+    background-color: #fece2e;
+    font-size: 16px;
+    /* color: white; */
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+.cancel_icon{
+    position: absolute;
+    right: 0%;
+    font-size: 20px;
+    background: transparent;
+    font-weight: bold;
+    color: white;
+    border: none;
+    margin: 10px;
+    cursor: pointer;
+}
