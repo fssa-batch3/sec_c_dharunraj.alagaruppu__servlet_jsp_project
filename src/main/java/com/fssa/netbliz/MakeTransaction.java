@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fssa.netbliz.exception.ServiceException;
 import com.fssa.netbliz.model.Transaction;
@@ -43,19 +44,26 @@ public class MakeTransaction extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Transaction trans = (Transaction) request.getAttribute("transaction");
-	
+		HttpSession session = request.getSession(false);
+		Transaction trans = (Transaction) session.getAttribute("transaction");
+		System.out.println("make");
+		System.out.println("MK:" + trans);
+		System.out.println("make");
 		TransactionService transService = new TransactionService();
-		
-		try {
-			if (transService.moneyTransaction(trans))
 
-				response.sendRedirect("./History");
+		try {
+			if (transService.moneyTransaction(trans)) {
+
+				session.removeAttribute("transaction");
+				response.sendRedirect("./history.jsp");
+
+			}
 		} catch (ServiceException | IOException e) {
 
-			System.out.println(e.getMessage() + "ljknl");
+			System.out.println(e.getMessage());
 		}
 
+		//
 	}
 
 }

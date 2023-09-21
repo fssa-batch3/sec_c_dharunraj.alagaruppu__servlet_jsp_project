@@ -14,8 +14,6 @@ import com.fssa.netbliz.exception.ServiceException;
 import com.fssa.netbliz.model.Customer;
 import com.fssa.netbliz.service.CustomerService;
 
-
-
 /**
  * Servlet implementation class Login
  */
@@ -47,24 +45,23 @@ public class Login extends HttpServlet {
 
 		try {
 			if (cusService.logInCustomer(phone, email, password)) {
-				
-				System.out.println("if");
 
 				HttpSession session = request.getSession();
 
-				cusDetail = cusService.getCustomerByPhoneNumber(phone);
+		 		cusDetail = cusService.getCustomerByPhoneNumber(phone);
+
+				session.setAttribute("customerDetails", cusDetail);
 
 				session.setAttribute("phoneNumber", phone);
 
-				session.setAttribute("customerDetails", cusDetail);
 				response.sendRedirect("./AccountDetails");
 
 			}
 		} catch (ServiceException e) {
 
-			e.printStackTrace();
+			e.getMessage();
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 
 	}

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fssa.netbliz.exception.ServiceException;
 import com.fssa.netbliz.model.Transaction;
@@ -35,15 +36,7 @@ public class CheckMinimumBalance extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		String makeTrans=(String) request.getAttribute("makeTrans");
-
-		request.setAttribute("transaction", (Transaction)request.getAttribute("transaction"));
-		System.out.println((Transaction)request.getAttribute("transaction")+"dfgvunh");
-		RequestDispatcher dis = request.getRequestDispatcher("./MakeTransaction");
-		dis.forward(request, response);
-	
-
+		doPost(request, response);
 	}
 
 	/**
@@ -53,36 +46,30 @@ public class CheckMinimumBalance extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		PrintWriter out = response.getWriter();
-
-
+		HttpSession session = request.getSession(false);
+		
 		String holder = request.getParameter("holder");
+		System.out.println(holder);
 		String remittance = request.getParameter("remittance");
 		String ifsc = request.getParameter("ifsc");
 		double amount = Double.parseDouble(request.getParameter("amount"));
 		String remark = request.getParameter("textAreaExample6");
 
-		Transaction transaction= new Transaction();
-		transaction.setAccountHolderAccNo(holder);
-		transaction.setRemittanceAccNo(remittance);
-		transaction.setReceiverIfscCode(ifsc);
-		transaction.setTransferAmount(amount);
-		transaction.setRemark(remark);
+		Transaction trans = new Transaction(holder, remittance, ifsc, amount, remark);
+
 		TransactionService service = new TransactionService();
-		
-		request.setAttribute("transaction", transaction);
+		session.setAttribute("transaction", trans);
+		System.out.println("CMB:" + trans);
+
 		try {
 			if (service.checkMinimumBalance(holder, amount)) {
-				
-				RequestDispatcher dis = request.getRequestDispatcher("./MakeTransaction");
-				dis.forward(request, response);
+
+				response.sendRedirect("./MakeTransaction");
 
 			} else {
-				
 				request.setAttribute("confirmMsg", "true");
 				RequestDispatcher dis = request.getRequestDispatcher("./transfer.jsp");
 				dis.forward(request, response);
-
 			}
 		} catch (ServiceException e) {
 			e.getMessage();

@@ -1,33 +1,25 @@
 package com.fssa.netbliz;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.fssa.netbliz.exception.ServiceException;
-import com.fssa.netbliz.model.Account;
-import com.fssa.netbliz.service.AccountService;
-
-
 /**
- * Servlet implementation class Transaction
+ * Servlet implementation class Logout
  */
-@WebServlet("/TransferAccountNumber")
-public class TransferAccountNumber extends HttpServlet {
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public TransferAccountNumber() {
+	public Logout() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	/**
@@ -37,23 +29,20 @@ public class TransferAccountNumber extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		AccountService accountService = new AccountService();
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 		HttpSession session = request.getSession(false);
-		long phoneNumber = (long) session.getAttribute("phoneNumber");
-		List<Account> list = null;
-		try {
-			list = accountService.getAccountByPhoneNumber(phoneNumber);
-			if (list != null && !list.isEmpty()) {
 
-				session.setAttribute("accountList", list);
+		if (session != null) {
+			session.removeAttribute("PhoneNumber");
+			session.removeAttribute("customerDetails");
+			session.invalidate();
 
-			} else {
-				session.setAttribute("accountList", null);
-			}
-		} catch (ServiceException e) {
-			e.printStackTrace();
+		} else {
+			System.out.println("No Session Exists");
 		}
-		response.sendRedirect("./transfer.jsp");
+
+		response.sendRedirect("./index.jsp");
 	}
 
 	/**
@@ -62,7 +51,7 @@ public class TransferAccountNumber extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		doGet(request, response);
 	}
 
 }

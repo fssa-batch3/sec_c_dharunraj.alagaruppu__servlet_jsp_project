@@ -6,7 +6,7 @@
 .content_text p {
 	letter-spacing: 1px;
 	font-weight: 400;
-	line-height: 1.2;
+	line-height: 1.5;
 }
 
 .calculation {
@@ -81,7 +81,7 @@ a {
 }
 
 .link_bank form input {
-	margin-bottom: 3%;
+	margin-bottom: 4%;
 }
 
 .link_bank form button {
@@ -180,7 +180,7 @@ input:focus {
 
 .welcome .search {
 	padding: 1%;
-}
+} 
 
 .welcome .search img {
 	width: 20px;

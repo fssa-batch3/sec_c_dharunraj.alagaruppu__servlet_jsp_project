@@ -58,6 +58,10 @@ header {
 	border-bottom: 2px solid #2a48ee;
 }
 
+.current_page:{
+	
+}
+
 .logout a, .select_div button {
 	text-decoration: none;
 	background-color: #2a48ee;

@@ -14,10 +14,6 @@ import com.fssa.netbliz.exception.ServiceException;
 import com.fssa.netbliz.model.Account;
 import com.fssa.netbliz.service.AccountService;
 
-
-
-
-
 /**
  * Servlet implementation class HomeAccountDetails
  */
@@ -41,11 +37,15 @@ public class AccountDetails extends HttpServlet {
 			throws ServletException, IOException {
 
 		AccountService accountService = new AccountService();
-		HttpSession session = request.getSession();
-		long phoneNumber = (long) session.getAttribute("phoneNumber");
+
+		HttpSession session = request.getSession(false);
+
+		long phone = (long) session.getAttribute("phoneNumber");
+
 		List<Account> list = null;
+
 		try {
-			list = accountService.getAccountByPhoneNumber(phoneNumber);
+			list = accountService.getAccountByPhoneNumber(phone);
 			if (list != null && !list.isEmpty()) {
 
 				session.setAttribute("accountList", list);
@@ -54,12 +54,12 @@ public class AccountDetails extends HttpServlet {
 				session.setAttribute("accountList", null);
 			}
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
-		
-		response.sendRedirect("./home.jsp");
-		request.setAttribute("successMsg", "Account added successfully");
 
+		session.setAttribute("phoneNumber", phone);
+		request.setAttribute("successMsg", "Account added successfully");
+		response.sendRedirect("./home.jsp");
 	}
 
 	/**

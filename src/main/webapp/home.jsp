@@ -19,26 +19,14 @@
 
 </head>
 <body>
-	<%
-	String success = (String) request.getAttribute("successMsg");
-	String error = (String) request.getAttribute("errorMsg");
-	if (error != null && !(error.isEmpty())) {
-	%>
-	<h3 class="text-center text-danger mt-2"><%=error%></h3>
-	<%
-	}
-	if (success != null && !(success.isEmpty()) && error == null) {
-	%>
-	<h3 class="text-center text-success mt-2"><%=success%></h3>
-	<%
-	}
-	%>
+
 	<main>
 		<jsp:include page="./header.jsp"></jsp:include>
 
 		<%
 		List<Customer> detail = (List<Customer>) session.getAttribute("customerDetails");
 
+		long phone = (long) session.getAttribute("phoneNumber");
 		if (detail != null) {
 
 			for (Customer name : detail) {
@@ -58,21 +46,21 @@
 
 			</div>
 
-				<div class="profile">
-					<img src="https://iili.io/HytC4Cg.png" alt="account">
-					<div class="detail">
-						<span class="fname"><%=name.getFirstName()%></span> <span>customer</span>
-					</div>
-
+			<div class="profile">
+				<img src="https://iili.io/HytC4Cg.png" alt="account">
+				<div class="detail">
+					<span class="fname"><%=name.getFirstName()%></span> <span>customer</span>
 				</div>
-			
 
+			</div>
+
+			<%
+			}
+			}
+			%>
 		</div>
 
-		<%
-		}
-		}
-		%>
+
 		<div class="back_link">
 
 			<img src="https://iili.io/HyhTRY7.gif" alt="intro">
@@ -81,7 +69,7 @@
 				<h2>Link a bank account</h2>
 				<p>You'll need to link and confirm to our bank account before
 					you can receive Payment with Banking. We'll automatically withdraw
-					the funds in your NET BLIZ account to the bank account</p>
+					the funds in your NETBLIZ account to the bank account</p>
 
 				<form action="./AddAccount" method="post">
 					<label for="accountnumber"> Account number </label> <input
@@ -90,43 +78,25 @@
 						autofocus required> <label for="ifsc"> IFSC code </label>
 					<span id="alert_icon"></span> <input class="form-control"
 						name="ifsc" type="text" id="ifsc" pattern="[0-9A-Za-z]{5,15}"
-						title="Are you sure !! minium Your ifsc number should be 12 numbers"
-						required> <label for="phone">Phone number</label> <input
-						class="form-control" name="phone" type="tel" id="phone"
-						title=" Enter your correct phone number that you logged in"
+						title="Are you sure !! minimum Your ifsc number should be 12 numbers"
 						required>
-
-					<h6>Choose minimum balance</h6>
-					<div class="input-group mb-3 drop_down">
-
-						<select class="form-select" id="inputGroupSelect03" name="min"
-							aria-label="Example select with button addon" required>
-
-							<option value="">please select correctly amount *</option>
-							<!-- <option value="0">₹ 0-/</option> -->
-							<option value="500.0">&#8377; 500-/</option>
-							<option value="1000.0">&#8377; 1,000-/</option>
-							<option value="2500.0">&#8377; 2,500-/</option>
-							<option value="5000.0">&#8377; 5,000-/</option>
-							<option value="10000.0">&#8377; 10,000-/</option>
-							<option value="25000.0">&#8377; 25,000-/</option>
-
-						</select>
+					<div class="form-check terms">
+						<input class="form-check-input" type="checkbox" id="gridCheck"
+							required> <label class="form-check-label" for="gridCheck">
+							I accept all terms and conditions</label>
 					</div>
 
-					<h5>Account type</h5>
-
-					<input type="radio" name="type" id="personal" value="SAVINGS"
-						required> <label for="personal">Savings Account</label> <br>
-					<input type="radio" name="type" id="business" value="CURRENT">
-					<label for="business">Current Account </label> <br>
-
-					<p>Remember to double-check your account number . Banks may not
-						flag errors until you transfer funds</p>
+					<p>"Remember, if you click the 'Link Bank' button, all your
+						data will be purchased by your bank will be linked with the
+						Netbliz application. Once you link with Netbliz, you can continue
+						transactions within the application using this platform, and your
+						minimum balance tracker will start properly."</p>
 
 					<input class="btn btn-primary" type="submit" value="Link your bank">
 
 				</form>
+
+
 			</div>
 
 		</div>
@@ -164,7 +134,13 @@
 						placeholder="Branch Name" value=<%=acc.getCategory()%>><label
 						for="branch">Account type</label>
 				</div>
-
+				
+				<div class="form-floating mb-3">
+					<input type="text" id="minimum_balance"
+						class="minimum_balance form-control input_size" name="minimum_balance" disabled
+						placeholder="Minimum balance" value=<%=acc.getMinimumBalance()%>><label
+						for="branch">Minimum balance</label>
+				</div>
 
 				<a href="./AccountDelete?acc=<%=acc.getAccountNumber()%>">
 					<button id="remove_bk" class="btn btn-primary remove_bk">Remove

@@ -1,19 +1,20 @@
 package com.fssa.netbliz;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.fssa.netbliz.enums.AccountEnum;
 import com.fssa.netbliz.exception.ServiceException;
 import com.fssa.netbliz.model.Account;
+import com.fssa.netbliz.model.Customer;
 import com.fssa.netbliz.service.AccountService;
-
-
 
 /**
  * Servlet implementation class Home
@@ -47,24 +48,32 @@ public class AddAccount extends HttpServlet {
 
 //		PrintWriter out = response.getWriter();
 
-		String accNo = request.getParameter("accountnumber");
-		String ifsc = request.getParameter("ifsc");
-		long phone = Long.parseLong(request.getParameter("phone"));
-		AccountEnum type = AccountEnum.valueOf(request.getParameter("type"));
-		double minimumBalance = Double.parseDouble(request.getParameter("min"));
+		HttpSession session = request.getSession(false); // false
 
-		Account account = new Account(accNo, ifsc, phone, minimumBalance, type);
+		List<Customer> cus = (List<Customer>) session.getAttribute("customerDetails");
+
+		String accNo = request.getParameter("accountnumber");
+		
+		String ifsc = request.getParameter("ifsc");
+
+		long phone = (long) session.getAttribute("phoneNumber");
+
+		System.out.println(phone);
+		Account account = new Account(accNo, ifsc, phone); 
 
 		AccountService accountService = new AccountService();
 
 		try {
-			if (accountService.addAccount(account)) {
-				
+			if (accountService.getBankDetails(account)){
+
+				session.setAttribute("phoneNumber",phone);
+				session.setAttribute("customerDetails", cus);
 				response.sendRedirect("AccountDetails");
+				
 			}
 		} catch (ServiceException e) {
 
-			e.printStackTrace();
+			e.getMessage();
 		}
 
 	}

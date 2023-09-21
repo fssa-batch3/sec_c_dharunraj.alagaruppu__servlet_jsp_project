@@ -4,24 +4,28 @@
     <header>
     
         <div class="title">
-            <a href="./home.jsp">NET BLIZ</a>
+            <a href="./home.jsp">NETBLIZ</a>
         </div>
 
         <div class="full_link">
             <div>
-                <a class="current_page" href="./home.jsp">Home</a>
+                <a class="current_page" href="./home.jsp" autofocus>Home</a>
             </div>
 
             <div>
                 <a href="./transfer.jsp">Transfer</a>
             </div>
+            
+            <div>
+                <a href="./balance.jsp">Balance</a>
+            </div>
 
             <div>
-                <a href="./History">History</a>
+                <a href="./history.jsp">History</a>
             </div>
 
             <div class="logout">
-                <a href="./login.jsp">Log Out</a>
+                <a href="Logout">Log Out</a>
             </div>
         </div>
 
