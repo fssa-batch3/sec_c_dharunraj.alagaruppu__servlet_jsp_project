@@ -2,6 +2,7 @@ package com.fssa.netbliz;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fssa.netbliz.exception.ServiceException;
 import com.fssa.netbliz.service.AccountService;
-
 
 /**
  * Servlet implementation class AccountDelete
@@ -39,15 +39,26 @@ public class AccountDelete extends HttpServlet {
 		AccountService accountService = new AccountService();
 
 		try {
-
 			if (accountService.removeAccountByAccountNumber(accNo)) {
-				response.sendRedirect("./AccountDetails");
+
+				request.setAttribute("successMsg", "Your account details deleted successfully.");
+				request.setAttribute("path", "./AccountDetails");
+
+				RequestDispatcher rd = request.getRequestDispatcher("./home.jsp");
+				rd.forward(request, response);
+
+				System.out.println("Your account details successfully deleted ");
 
 			}
+		} catch (ServiceException | ServletException | IOException e) {
+			
+			request.setAttribute("errorMsg", e.getMessage());
+			request.setAttribute("path", "./home.jsp");
 
-		} catch (ServiceException e) {
+			RequestDispatcher rd = request.getRequestDispatcher("./home.jsp");
+			rd.forward(request, response);
 
-			e.printStackTrace();
+			System.out.println("deleted failed");
 		}
 
 	}

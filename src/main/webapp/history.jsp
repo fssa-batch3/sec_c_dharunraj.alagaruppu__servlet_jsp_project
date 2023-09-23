@@ -46,11 +46,25 @@
 
 						<option value="">Choose your Ac.No</option>
 
+						<%
+						List<Account> accountList = (List<Account>) session.getAttribute("accountList");
+						if (accountList != null) {
+							for (Account acc : accountList) {
+						%>
+
+						<option value=<%=acc.getAccountNumber()%>>
+							<%=acc.getAccountNumber()%></option>
+
+						<%
+						}
+						}
+						%> });
+
 					</select>
 
 					<button id="result_button">check</button>
 
-					<button id="restart">back</button>
+					<button onclick="restart_tab()" id="restart">back</button>
 
 				</div>
 
@@ -63,5 +77,6 @@
 	<main></main>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="assets/js/history.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/hover.js"></script>
 </body>
 </html>

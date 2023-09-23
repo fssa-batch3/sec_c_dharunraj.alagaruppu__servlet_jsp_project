@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 
 import com.fssa.netbliz.exception.ServiceException;
-import com.fssa.netbliz.model.Account;
+import com.fssa.netbliz.model.Customer;
 import com.fssa.netbliz.model.Transaction;
 import com.fssa.netbliz.service.TransactionService;
 
@@ -37,48 +37,30 @@ public class History extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		PrintWriter out = response.getWriter();
-		
+
 		HttpSession session = request.getSession(false);
 
 		TransactionService service = new TransactionService();
 
-		List<Account> accList = new ArrayList<>();
-
-		accList = (List<Account>) session.getAttribute("accountList"); // unchecked
+		Customer cus = (Customer) session.getAttribute("customerDetails");
+		
+		System.out.println("cus is" +cus.getCustomerId() + "cus id");
 
 		List<Transaction> list = new ArrayList<>();
+		System.out.println(cus.getCustomerId());
+		try {
+			list = service.listOfTransaction(cus.getCustomerId());
+			JSONArray accountsJSonArray = new JSONArray(list);
+			out.println(accountsJSonArray.toString());
+			out.flush();
 
-		for (Account acc : accList) {
-
-			System.out.println(acc);
-
-			try {
-				list = service.listOfTransaction(acc.getCustomerId());
-				System.out.println(list);
-				JSONArray accountsJSonArray = new JSONArray(list);
-				out.println(accountsJSonArray.toString());
-				out.flush();
-
-			} catch (ServiceException e) {
-				e.getMessage();
-			}
-
+		} catch (ServiceException e) {
+			e.getMessage();
 		}
-//
-//		if (list != null && !list.isEmpty()) {
-//
-//			session.setAttribute("transList", list);
-//			System.out.println("if");
-//		}
-		System.out.println("end");
-		session.setAttribute("accountList", accList);
-
-//		response.sendRedirect("./history.jsp");
 
 	}
 

@@ -1,7 +1,6 @@
 package com.fssa.netbliz;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,7 +48,6 @@ public class CheckMinimumBalance extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		
 		String holder = request.getParameter("holder");
-		System.out.println(holder);
 		String remittance = request.getParameter("remittance");
 		String ifsc = request.getParameter("ifsc");
 		double amount = Double.parseDouble(request.getParameter("amount"));
@@ -59,7 +57,6 @@ public class CheckMinimumBalance extends HttpServlet {
 
 		TransactionService service = new TransactionService();
 		session.setAttribute("transaction", trans);
-		System.out.println("CMB:" + trans);
 
 		try {
 			if (service.checkMinimumBalance(holder, amount)) {

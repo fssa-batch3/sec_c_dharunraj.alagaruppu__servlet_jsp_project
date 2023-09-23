@@ -17,6 +17,7 @@
 	<main>
 
 		<h3 id="balance_name">Bank balance details</h3>
+
 		<div class="bank_details">
 			<%
 			List<Account> accountList = (List<Account>) session.getAttribute("accountList");
@@ -24,29 +25,30 @@
 				for (Account acc : accountList) {
 			%>
 
-			<div class="bank_no">
-				<img src="https://iili.io/HytQ3rJ.png" alt="NetBliz">
-				<h4 class="account_num" id="account"><%=acc.getAccountNumber()%></h4>
-				<h3 class="bank_name" id="bank_name"><%=acc.getIfsc()%></h3>
-			</div>
+			<form action="<%=request.getContextPath()%>/Balance" method="post">
 
+				<button type="submit" class="bank_no"
+					style="border: none; font-size: 15px;">
+					<input type="hidden" value="<%=acc.getAccountNumber()%>"
+						name="acc_no"> <img src="https://iili.io/HytQ3rJ.png"
+						alt="NetBliz">
+					<h4 class="account_num" id="account"><%=acc.getAccountNumber()%></h4>
+					<h3 class="bank_name" id="bank_name"><%=acc.getIfsc()%></h3>
+				</button>
+			</form>
 
 			<%
 			}
 			}
 			%>
 
-
 		</div>
 
 		<%
-		List<Account> account = (List<Account>) session.getAttribute("accountList");
-		if (account != null) {
-			for (Account acc : account) {
-				
-				if(acc.getAccountNumber().equals(""))
-		%>
+		Account findAcc = (Account) request.getAttribute("findAcc");
 
+		if (findAcc != null) {
+		%>
 		<div class="container1">
 
 			<div class="content1">
@@ -63,13 +65,13 @@
 						<div class="account_number">
 
 							<span>Account Number :</span>
-							<h2 id="customer_ac"><%=acc.getAccountNumber()%></h2>
+							<h2 id="customer_ac"><%=findAcc.getAccountNumber()%></h2>
 						</div>
 
 						<div class="account_type">
 
-							<span>Account Type :</span>
-							<h2 id="ac_type"></h2>
+							<span>Minimum balance :</span>
+							<h2 id="ac_type">&#8377;<%=findAcc.getMinimumBalance()%></h2>
 						</div>
 
 					</div>
@@ -77,7 +79,7 @@
 					<div class="account_balance">
 
 						<span>Available money :</span>
-						<h1 id="balance"></h1>
+						<h1 id="balance">&#8377;<%=findAcc.getAvailableBalance()%></h1>
 					</div>
 
 				</div>
@@ -94,43 +96,22 @@
 
 		<%
 		}
-		}
 		%>
-
 	</main>
-	<script type="text/javascript">
 
 
-	const user_acc = document.querySelectorAll(".bank_no"); // no of div
-	const account_num = document.querySelectorAll(".account_num");
-	const customer_num = document.getElementById("customer_ac");
+	<script>
+		const find_acc = document.querySelector(".container1");
+		const bank_details = document.querySelector(".bank_details");
 
-	let ref_num;
+		if (find_acc) {
 
-	for (let p = 0; p < user_acc.length; p++) {
-	  user_acc[p].addEventListener("click", () => {
-		  
-	    document.querySelector(".container1").style.display = "block";
+			bank_details.style.display = "none";
+		} else {
 
-	    document.querySelector("#balance_name").style.display = "none";
-
-	    document.querySelector(".bank_details").style.display = "none";
-	    
-
-	    ref_num =  account_num[p].innerHTML;
-	    
-	  });
-	}
-	
-	function account_details(acc_no){
-		
-		user_acc.forEach((e)=>{
-			
-			
+			bank_details.style.display = "block";
 		}
-		
-	}
-
 	</script>
+<script src="<%=request.getContextPath()%>/assets/js/hover.js"></script>
 </body>
 </html>

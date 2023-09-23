@@ -24,19 +24,17 @@
 		<jsp:include page="./header.jsp"></jsp:include>
 
 		<%
-		List<Customer> detail = (List<Customer>) session.getAttribute("customerDetails");
+	Customer detail = (Customer) session.getAttribute("customerDetails");
 
 		long phone = (long) session.getAttribute("phoneNumber");
 		if (detail != null) {
-
-			for (Customer name : detail) {
 		%>
 
 
 		<div class="welcome">
 
 			<div class="welcome_sms">
-				<span>Welcome </span> <span class="fname"><%=name.getFirstName()%>,</span>
+				<span>Welcome </span> <span class="fname"><%=detail.getFirstName()%>,</span>
 			</div>
 
 			<div class="search">
@@ -49,13 +47,12 @@
 			<div class="profile">
 				<img src="https://iili.io/HytC4Cg.png" alt="account">
 				<div class="detail">
-					<span class="fname"><%=name.getFirstName()%></span> <span>customer</span>
+					<span class="fname"><%=detail.getFirstName()%></span> <span>customer</span>
 				</div>
 
 			</div>
 
 			<%
-			}
 			}
 			%>
 		</div>
@@ -134,12 +131,13 @@
 						placeholder="Branch Name" value=<%=acc.getCategory()%>><label
 						for="branch">Account type</label>
 				</div>
-				
+
 				<div class="form-floating mb-3">
 					<input type="text" id="minimum_balance"
-						class="minimum_balance form-control input_size" name="minimum_balance" disabled
-						placeholder="Minimum balance" value=<%=acc.getMinimumBalance()%>><label
-						for="branch">Minimum balance</label>
+						class="minimum_balance form-control input_size"
+						name="minimum_balance" disabled placeholder="Minimum balance"
+						value=<%=acc.getMinimumBalance()%>><label for="branch">Minimum
+						balance</label>
 				</div>
 
 				<a href="./AccountDelete?acc=<%=acc.getAccountNumber()%>">
@@ -154,8 +152,9 @@
 			}
 			%>
 
-
 		</div>
 	</main>
+	<script src="<%=request.getContextPath()%>/assets/js/hover.js"></script>
+	<jsp:include page="./successOrErrorMsg.jsp"></jsp:include>
 </body>
 </html>

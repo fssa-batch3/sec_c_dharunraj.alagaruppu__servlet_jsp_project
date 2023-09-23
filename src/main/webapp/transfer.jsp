@@ -64,7 +64,7 @@
 						for (Account acc : accountList) {
 					%>
 
-					<option value=<%=acc.getAccountNumber()%>>
+					<option id="from" value=<%=acc.getAccountNumber()%>>
 						<%=acc.getAccountNumber()%></option>
 
 					<%
@@ -82,7 +82,7 @@
 					Transfer amount </label> <input class="form-control" type="number"
 					id="amount" name="amount" aria=" Transfer Amount" min="1" required>
 				<div class="form-outline w-75 mb-4">
-					<label class="form-label" for="textAreaExample6">Remarks</label>
+					<label class="form-label" for="textAreaExample6">Remarks (Optional)</label>
 					<textarea class="form-control textAreaExample6"
 						id="textAreaExample6" rows="2" name="textAreaExample6"></textarea>
 				</div>
@@ -101,5 +101,7 @@
 		document.querySelector("#delete_box").style.display = "none";
 		}
 	</script>
+	<script src="<%=request.getContextPath()%>/assets/js/hover.js"></script>
+	<jsp:include page="./successOrErrorMsg.jsp"></jsp:include>
 </body>
 </html>

@@ -1,9 +1,7 @@
 package com.fssa.netbliz;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import com.fssa.netbliz.exception.ServiceException;
 import com.fssa.netbliz.model.Account;
-import com.fssa.netbliz.model.Customer;
 import com.fssa.netbliz.service.AccountService;
 
 /**
@@ -46,34 +43,40 @@ public class AddAccount extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-//		PrintWriter out = response.getWriter();
-
 		HttpSession session = request.getSession(false); // false
 
-		List<Customer> cus = (List<Customer>) session.getAttribute("customerDetails");
-
 		String accNo = request.getParameter("accountnumber");
-		
+
 		String ifsc = request.getParameter("ifsc");
 
 		long phone = (long) session.getAttribute("phoneNumber");
 
-		System.out.println(phone);
-		Account account = new Account(accNo, ifsc, phone); 
+		Account account = new Account(accNo, ifsc, phone);
 
 		AccountService accountService = new AccountService();
 
 		try {
-			if (accountService.getBankDetails(account)){
+			if (accountService.getBankDetails(account)) {
 
-				session.setAttribute("phoneNumber",phone);
-				session.setAttribute("customerDetails", cus);
-				response.sendRedirect("AccountDetails");
-				
+				request.setAttribute("successMsg",
+						"Your account details successfully fetched from the bank.. You can see your bank details below that form.!");
+				request.setAttribute("path", "./AccountDetails");
+
+				RequestDispatcher rd = request.getRequestDispatcher("./home.jsp");
+				rd.forward(request, response);
+
+				System.out.println("Your account details successfully added ");
 			}
-		} catch (ServiceException e) {
+			
+		} catch (ServiceException | IOException e) {
 
-			e.getMessage();
+			request.setAttribute("errorMsg", e.getMessage());
+			request.setAttribute("path", "./home.jsp");
+
+			RequestDispatcher rd = request.getRequestDispatcher("./home.jsp");
+			rd.forward(request, response);
+
+			System.out.println("added failed");
 		}
 
 	}

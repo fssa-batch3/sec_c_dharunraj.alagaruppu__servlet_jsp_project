@@ -2,6 +2,7 @@ package com.fssa.netbliz;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,17 +20,6 @@ import com.fssa.netbliz.service.CustomerService;
 public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public Registration() {
-		super();
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -45,15 +35,20 @@ public class Registration extends HttpServlet {
 		CustomerService cusService = new CustomerService();
 
 		try {
-			if (cusService.addCustomer(customer)) {
-				
-				response.sendRedirect("./login.jsp");
-
-			}
+			cusService.addCustomer(customer);
+			System.out.println( "Customer Account Added successfully");
+			request.setAttribute("successMsg", "Welcome to the application");
+			request.setAttribute("path", "./login.jsp"); 
+			
+			RequestDispatcher rd = request.getRequestDispatcher("./registration.jsp");
+			rd.forward(request, response);
+			
 		} catch (ServiceException e) {
-			e.getMessage();
-		} catch (IOException e) {
-			e.getMessage();
+			request.setAttribute("errorMsg", e.getMessage());
+			RequestDispatcher rd = request.getRequestDispatcher("./registration.jsp");
+			request.setAttribute("path", "./registration.jsp");
+			System.out.println( "Customer Account Adding failed");
+			rd.forward(request, response);
 		}
 
 	}

@@ -32,7 +32,8 @@
 					title="Check your email format " required> <label
 					for="phone"></label> <input type="tel" name="phone" id="phone"
 					placeholder="Phone number *"
-					title="Your number should be 10 numbers" required pattern="^((?!(0))[0-9]{10})$"  maxlength="10"> <label
+					title="Your number should be 10 numbers" required
+					pattern="^((?!(0))[0-9]{10})$" maxlength="10"> <label
 					for="pass"></label> <input type="password" name="pass"
 					id="new_pass" placeholder="Create password *"
 					title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
@@ -48,5 +49,6 @@
 			</form>
 		</div>
 	</div>
+	<jsp:include page="./successOrErrorMsg.jsp"></jsp:include>
 </body>
 </html>

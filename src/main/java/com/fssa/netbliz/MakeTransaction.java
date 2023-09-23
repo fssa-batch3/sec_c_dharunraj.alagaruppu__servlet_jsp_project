@@ -2,6 +2,7 @@ package com.fssa.netbliz;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,22 +46,34 @@ public class MakeTransaction extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false);
+
 		Transaction trans = (Transaction) session.getAttribute("transaction");
-		System.out.println("make");
-		System.out.println("MK:" + trans);
-		System.out.println("make");
+
 		TransactionService transService = new TransactionService();
 
 		try {
 			if (transService.moneyTransaction(trans)) {
 
+				request.setAttribute("successMsg", "Transaction success");
+				request.setAttribute("path", "./history.jsp");
+
+				RequestDispatcher rd = request.getRequestDispatcher("./transfer.jsp");
+				rd.forward(request, response);
+
+				System.out.println("Transaction success");
+
 				session.removeAttribute("transaction");
-				response.sendRedirect("./history.jsp");
 
 			}
 		} catch (ServiceException | IOException e) {
 
-			System.out.println(e.getMessage());
+			request.setAttribute("errorMsg", e.getMessage());
+			request.setAttribute("path", "./transfer.jsp");
+
+			RequestDispatcher rd = request.getRequestDispatcher("./transfer.jsp");
+			rd.forward(request, response);
+
+			System.out.println("transaction failed");
 		}
 
 		//

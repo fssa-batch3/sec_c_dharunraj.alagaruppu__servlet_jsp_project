@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -125,8 +126,9 @@
 							<span>3</span> Secure watch assets
 						</h2>
 
-						<p>100% digital banking with no pain: saving accounts and current accounts,
-							no hidden fees. Master your money and reap rewards.</p>
+						<p>100% digital banking with no pain: saving accounts and
+							current accounts, no hidden fees. Master your money and reap
+							rewards.</p>
 					</div>
 
 				</div>
@@ -182,6 +184,8 @@
 		</div>
 
 	</main>
+
+	
 
 </body>
 

@@ -29,9 +29,6 @@ main .intro img {
 }
 
 
-.container1 {
-    display: none;
-}
 
 .container1 .content1 {
     display: flex;

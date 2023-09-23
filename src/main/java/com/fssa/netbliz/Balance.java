@@ -1,11 +1,17 @@
 package com.fssa.netbliz;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.fssa.netbliz.model.Account;
 
 /**
  * Servlet implementation class Balance
@@ -13,30 +19,47 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Balance")
 public class Balance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Balance() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		
+	public Balance() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String accNo = (String) request.getParameter("");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String accNo = (String) request.getParameter("acc_no");
+
+		HttpSession session = request.getSession(false);
+
+		List<Account> acc = (List<Account>) session.getAttribute("accountList");
+
+		for (Account ele : acc) {
+
+			if (accNo.equals(ele.getAccountNumber())) {
+
+				request.setAttribute("findAcc", ele);
+				RequestDispatcher dis = request.getRequestDispatcher("./balance.jsp");
+				dis.forward(request, response);
+			}
+		}
+
 	}
 
 }

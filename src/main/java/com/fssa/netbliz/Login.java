@@ -1,8 +1,8 @@
 package com.fssa.netbliz;
 
 import java.io.IOException;
-import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,29 +41,35 @@ public class Login extends HttpServlet {
 
 		CustomerService cusService = new CustomerService();
 
-		List<Customer> cusDetail = null;
+		Customer customer = new Customer();
 
 		try {
 			if (cusService.logInCustomer(phone, email, password)) {
 
 				HttpSession session = request.getSession();
 
-		 		cusDetail = cusService.getCustomerByPhoneNumber(phone);
+				customer = cusService.getCustomerByPhoneNumber(phone);
 
-				session.setAttribute("customerDetails", cusDetail);
+				session.setAttribute("customerDetails", customer);
 
 				session.setAttribute("phoneNumber", phone);
 
-				response.sendRedirect("./AccountDetails");
+				System.out.println("Customer Logged in successfully");
+				request.setAttribute("successMsg", "Customer Logged in successfully");
+				request.setAttribute("path", "./AccountDetails");
+
+				RequestDispatcher rd = request.getRequestDispatcher("./login.jsp");
+				rd.forward(request, response);
 
 			}
-		} catch (ServiceException e) {
+		} catch (ServiceException | IOException | ServletException e) {
 
-			e.getMessage();
-		} catch (IOException e) {
-			e.getMessage();
+			request.setAttribute("errorMsg", e.getMessage());
+			RequestDispatcher rd = request.getRequestDispatcher("./login.jsp");
+			request.setAttribute("path", "./login.jsp");
+			rd.forward(request, response);
+			System.out.println("Login failed");
 		}
-
 	}
 
 	/**

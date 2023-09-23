@@ -48,5 +48,7 @@
 		</div>
 
 	</div>
+	<jsp:include page="./successOrErrorMsg.jsp"></jsp:include>
 </body>
+
 </html>

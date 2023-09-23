@@ -2,8 +2,8 @@ const url = "http://localhost:8080/netbliz-web/History";
 	   axios.get(url)
 	   .then(function (response) {
 	// handle success
-	    console.log(response.data);
 	   view_history(response.data);
+	   let temp    
 	  })
 	  .catch(function (error) {
 	// handle error
@@ -174,7 +174,7 @@ if(remark.length > 0){
 const search = document.querySelector("#search");
 
 const history_search = document.getElementsByClassName("history");
-console.log(history_search);
+
 search.addEventListener("input", (key) => {
   const values = key.target.value.toLowerCase();
 
@@ -232,8 +232,6 @@ console.log(history_search[i]
   }
 });
 
-let select_account;
-
 const filter_div = document.querySelector(".filter");
 
 filter_div.addEventListener("click", () => {
@@ -242,20 +240,47 @@ filter_div.addEventListener("click", () => {
   filter.style.display = "none";
 
   document.querySelector(".select_div").style.display = "block";
+  
 });
 
-const result_button = document.querySelector("button");
+let select_account;
+
+const result_button = document.querySelector("#result_button");
 
 result_button.addEventListener("click", () => {
   select_account = document.getElementById("from").value.trim();
-
+  
   if (select_account !== "") {
     search_account();
   } else {
     alert("click dropdown account number");
   }
 });
-
+  
 function search_account(){
-	 alert("Under progress");
+	 console.log("enter")
+ d.forEach((e)=>{
+	 
+	const sender_only =   e.querySelector(".reciver_num").innerHTML;
+	
+	const recive_only = e.querySelector(".send_account").innerHTML;
+  
+  if (
+      String(select_account) === String(sender_only) ||
+      String(select_account) === String(recive_only)
+    ) {
+     e.style.display = "block";
+    } else {
+      e.style.display = "none";
+    }
+});
+
+}
+
+function restart_tab() {
+  const restart = document.getElementById("restart");
+  if (restart)
+    restart.addEventListener("click", () => {
+      location.reload();
+    });
 }
