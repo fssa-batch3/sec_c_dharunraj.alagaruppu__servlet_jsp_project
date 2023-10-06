@@ -1,8 +1,8 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="ISO-8859-1">
 <meta charset="UTF-8">
@@ -13,6 +13,7 @@
 
 <title>History</title>
 </head>
+
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
 
@@ -26,6 +27,9 @@
 					name="search" placeholder="History here">
 
 			</div>
+
+			<b><span id="selectedAccount">Selected account
+					transactions below : </span></b>
 
 			<div class="right_filter">
 
@@ -44,21 +48,7 @@
 
 					<select class="form-select accounts" id="from" required>
 
-						<option value="">Choose your Ac.No</option>
-
-						<%
-						List<Account> accountList = (List<Account>) session.getAttribute("accountList");
-						if (accountList != null) {
-							for (Account acc : accountList) {
-						%>
-
-						<option value=<%=acc.getAccountNumber()%>>
-							<%=acc.getAccountNumber()%></option>
-
-						<%
-						}
-						}
-						%> });
+						<jsp:include page="./dropDownAccountNumber.jsp"></jsp:include>
 
 					</select>
 
@@ -79,4 +69,5 @@
 	<script src="assets/js/history.js"></script>
 	<script src="<%=request.getContextPath()%>/assets/js/hover.js"></script>
 </body>
+
 </html>

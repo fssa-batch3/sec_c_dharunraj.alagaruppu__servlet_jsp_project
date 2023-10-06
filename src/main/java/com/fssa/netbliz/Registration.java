@@ -38,7 +38,7 @@ public class Registration extends HttpServlet {
 			cusService.addCustomer(customer);
 			System.out.println( "Customer Account Added successfully");
 			request.setAttribute("successMsg", "Welcome to the application");
-			request.setAttribute("path", "./login.jsp"); 
+			request.setAttribute("path", "./login.jsp");
 			
 			RequestDispatcher rd = request.getRequestDispatcher("./registration.jsp");
 			rd.forward(request, response);

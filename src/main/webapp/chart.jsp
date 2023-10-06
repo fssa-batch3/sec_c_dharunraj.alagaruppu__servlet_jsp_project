@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.fssa.netbliz.model.*"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.time.LocalDate"%>
+
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="ISO-8859-1">
 <title>Chart</title>
@@ -12,6 +18,7 @@
 	integrity="sha384-UdJHYJK9eDBy7vML0TvJGlCpvrJhCuOPGTc7tHbA+jHEgCgjWpPbmMvmd/2bzdXU"
 	crossorigin="anonymous"></script>
 </head>
+
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
 
@@ -44,17 +51,137 @@
 
 	<div class="select_div">
 
-		<select class="form-select accounts" id="from" required>
+		<select class="form-select accounts" id="from" name="holder" required>
 
-			<option value="">Choose your Ac.No</option>
+			<jsp:include page="./dropDownAccountNumber.jsp"></jsp:include>
 
 		</select>
 
-		<button type="button" id="result_button">check</button>
+		<button type="submit" id="result_button">Check</button>
 
-		<button type="button" id="restart">back</button>
+		<button type="button" onclick="restart_tab()" id="restart">Back</button>
 
 	</div>
+	<div class="calculation">
+
+		<%
+		List<Account> acc = (List<Account>) session.getAttribute("accountList");
+		List<CronJob> list = (List<CronJob>) request.getAttribute("chart");
+		String accNo = (String) request.getAttribute("selectedAccount");
+		int sNo = 1;
+
+		double sum = 0;
+		double avg = 0;
+
+		if (list != null && !list.isEmpty()) {
+		%>
+
+		<h2>
+			<strong>Calculation and your account statics : </strong>
+		</h2>
+
+		<p>MAB = (The total of end-of-the-day closing balances) / (number
+			of days in the month)</p>
+
+		<p>Hence, the monthly average balance will be calculated using two
+			figures:</p>
+		<ol>
+			<li>Calculating the total sum of closing balances in the month</li>
+			<li>Number of days in the month</li>
+		</ol>
+
+		<p>Lets look at your account details :</p>
+
+		<table>
+
+			<caption>
+				Selected account number : <span><b> <%=accNo%><b></span>
+			</caption>
+			<tr>
+				<th><b>S.No</b></th>
+				<th><b>Date</b></th>
+				<th><b>End of the day closing balance<br>( EOD )<br></b></th>
+
+			</tr>
+
+			<%
+			for (CronJob cj : list) {
+				LocalDate localDate = cj.getDate();
+				java.sql.Timestamp timestamp = java.sql.Timestamp.valueOf(localDate.atStartOfDay());
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+				String formattedDate = dateFormat.format(timestamp);
+				sum += cj.getAvailableBalance();
+				avg = sum / list.size();
+			%>
+
+
+			<tr>
+				<td><%=sNo++%></td>
+				<td><%=formattedDate%></td>
+				<td>&#8377; <%=cj.getAvailableBalance()%>
+				</td>
+			</tr>
+
+
+			<%
+			}
+			}
+			%>
+
+		</table>
+
+
+		<p>
+			<%
+			int i = 0;
+			if (list != null && !list.isEmpty()) {
+				for (CronJob cj : list) {
+			%>
+
+			<span> <%
+ if (i == 0) {
+ %> = (<%=cj.getAvailableBalance()%> <%
+ } else {
+ %> + <%=cj.getAvailableBalance()%> <%
+ }
+ %>
+
+			</span>
+			<%
+			i = 1;
+			}
+			%>) /
+			<%=list.size()%>
+
+
+		</p>
+
+		<p>
+			=
+			<%=sum%>
+			/
+			<%=list.size()%>
+		</p>
+
+		<p>
+			= Rs
+			<%=avg%>
+		</p>
+
+		<p>Hence, Monthly average balance is calculated</p>
+
+
+		<%
+		}
+		%>
+	</div>
+
+
+
+
+	<%
+	if (list == null || list.isEmpty()) {
+	%>
 
 	<div class="calculation">
 
@@ -75,7 +202,6 @@
 			<li>Calculating the total sum of closing balances in the month</li>
 			<li>Number of days in the month</li>
 		</ol>
-		</p>
 
 		<p>The average monthly balance is then calculated by dividing the
 			total closing balances by the number of days in a month.</p>
@@ -155,6 +281,42 @@
 
 	</div>
 
+	<%
+	}
+	%>
+
 	<script src="<%=request.getContextPath()%>/assets/js/hover.js"></script>
-	</ body>
+	<jsp:include page="./successOrErrorMsg.jsp"></jsp:include>
+
+	<script type="text/javascript">
+
+                                    const result_button = document.querySelector("#result_button");
+
+
+                                    result_button.addEventListener("click", () => {
+                                        let drop_down = document.querySelector("#from").value;
+
+                                        if (drop_down == "") {
+
+                                            alert("click dropdown account number");
+                                        }
+                                        else {
+                                            const calculation = document.querySelector(".calculation").style.display = "none";
+                                            window.location.href = "./Chart?acc=" + drop_down;
+
+                                        }
+
+                                    });
+
+                                    function restart_tab() {
+
+                                        window.location.href = "./chart.jsp";
+
+                                    }
+
+
+                                </script>
+
+</body>
+
 </html>

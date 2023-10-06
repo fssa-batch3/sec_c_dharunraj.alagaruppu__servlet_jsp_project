@@ -70,10 +70,10 @@ input:focus, select:focus {
 
 #delete_box {
     position: absolute;
-    top: 350px;
+    top: 310px;
     left: 32%;
     width: 500px;
-    height: 360px;
+    height: 405px;
     background-color: #1d222e;
     border-radius: 20px;
     text-align: center;
@@ -126,4 +126,10 @@ input:focus, select:focus {
     border: none;
     margin: 10px;
     cursor: pointer;
+}
+#reminder_calculation{
+	
+	font-size: 16px;
+	color:red;
+	margin:10px auto;
 }

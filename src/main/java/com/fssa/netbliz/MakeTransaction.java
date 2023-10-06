@@ -63,9 +63,10 @@ public class MakeTransaction extends HttpServlet {
 				System.out.println("Transaction success");
 
 				session.removeAttribute("transaction");
-
+				session.removeAttribute("transactionRetrieve");
 			}
 		} catch (ServiceException | IOException e) {
+			
 
 			request.setAttribute("errorMsg", e.getMessage());
 			request.setAttribute("path", "./transfer.jsp");

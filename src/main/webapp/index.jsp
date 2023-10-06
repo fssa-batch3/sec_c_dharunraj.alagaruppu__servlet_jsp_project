@@ -3,11 +3,13 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="ISO-8859-1">
 <title>Index</title>
 <link rel="stylesheet" href="./assets/css/index.css">
 </head>
+
 <body>
 
 	<header>
@@ -136,6 +138,7 @@
 			</div>
 
 		</div>
+
 		<div class="start_build only_back" id="only_back">
 
 			<div class="open_account">
@@ -184,8 +187,6 @@
 		</div>
 
 	</main>
-
-	
 
 </body>
 

@@ -55,6 +55,8 @@ public class AddAccount extends HttpServlet {
 
 		AccountService accountService = new AccountService();
 
+		session.setAttribute("retrieveAccountDetails", account);
+		System.out.println("start");
 		try {
 			if (accountService.getBankDetails(account)) {
 
@@ -65,11 +67,13 @@ public class AddAccount extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("./home.jsp");
 				rd.forward(request, response);
 
+				session.removeAttribute("retrieveAccountDetails");
+
 				System.out.println("Your account details successfully added ");
 			}
-			
-		} catch (ServiceException | IOException e) {
 
+		} catch (ServiceException | IOException e) {
+			
 			request.setAttribute("errorMsg", e.getMessage());
 			request.setAttribute("path", "./home.jsp");
 

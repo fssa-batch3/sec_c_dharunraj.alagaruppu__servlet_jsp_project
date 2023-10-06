@@ -4,152 +4,6 @@
 	font-family: 'Open Sans', sans-serif;
 }
 
-#pie {
-	padding: 2%;
-}
-
-.account_chart {
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	margin: 5% auto;
-}
-
-.pie_chart_div {
-	padding: 3%;
-	width: 40%;
-	max-width: 600px;
-	max-height: 400px;
-	margin: 5% 0%;
-	background-color: white;
-	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-	border-radius: 15px;
-}
-
-.total_table {
-	width: 80%;
-	margin: 2% auto;
-	background-color: white;
-	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-	border-radius: 15px;
-}
-
-table {
-	border-collapse: collapse;
-	width: 80%;
-	background-color: white;
-	margin: 1% auto;
-}
-
-.first_td {
-	width: 35%;
-}
-
-.sec_td {
-	width: 15%;
-}
-
-.range {
-	width: 50%;
-}
-
-.min {
-	width: 80%;
-	margin: 0% auto;
-	height: 23px;
-	border-radius: 5px;
-	background-color: rgb(241, 241, 241);
-}
-
-.name {
-	display: flex;
-	justify-content: end;
-	align-items: center;
-}
-
-.percentage {
-	width: 60%;
-	height: 23px;
-	background-color: #00aba9;
-	border-radius: 5px;
-}
-
-#static_min {
-	height: 23px;
-	background-color: #4285F4;
-	border-radius: 5px;
-}
-
-td, th {
-	border: 0px;
-	text-align: left;
-	padding: 3%;
-}
-
-.cover {
-	height: 30px;
-	width: 70%;
-	background-color: rgb(241, 241, 241);
-	border-radius: 5px;
-}
-
-.chart_details {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 80%;
-	margin: 2% auto;
-}
-
-.details {
-	width: 40%;
-	padding: 7% 2%;
-	background-color: white;
-	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-	border-radius: 15px;
-}
-
-.remaining {
-	width: 70%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.name {
-	margin-right: 30%;
-}
-
-.value_avg, .daily_maintain {
-	height: 23px;
-	background-color: #4285F4;
-	border-radius: 3px;
-}
-
-.remaining_value {
-	height: 30px;
-	width: 10%;
-	background-color: #f84d33;
-	border-radius: 5px;
-}
-
-.day_date_month {
-	display: none;
-}
-
-.full_chart {
-	margin-bottom: 2%;
-	background-color: #f5f6ff;
-	font-weight: 600;
-	display: none;
-}
-
-.content_text p {
-	letter-spacing: 1px;
-	font-weight: 400;
-	line-height: 1.2;
-}
-
 .select_div {
 	height: 40px;
 	margin: 2% 2% 0% auto;
@@ -199,4 +53,52 @@ td, th {
 	left: 320px;
 	visibility: hidden;
 	font-size: large;
+}
+
+.calculation {
+	width: 70%;
+	margin: 5% auto;
+	color: rgba(0, 0, 0, 0.74);
+	font-style: initial;
+	font-family: 'Open Sans', sans-serif;
+	letter-spacing: 1px;
+	font-weight: 400;
+	line-height: 1.5;
+}
+
+p, ol {
+	margin-bottom: 1.65em;
+	font-size: 19px;
+	font-weight: 400;
+	letter-spacing: 1px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 60%;
+	margin: 5% auto;
+	letter-spacing: .4px;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: center;
+	padding: 15px;
+}
+
+tr:nth-child(even) {
+	background-color: #f1f1f1;
+}
+
+tr td:first-child {
+	text-align: center;
+	width: 150px;
+}
+
+button {
+	cursor: pointer;
+}
+
+caption {
+	margin: 20px auto;
 }

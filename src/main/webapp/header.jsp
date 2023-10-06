@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+
     <header>
-    
+
         <div class="title">
             <a href="./home.jsp">NETBLIZ</a>
         </div>
@@ -15,7 +14,7 @@
             <div>
                 <a href="./transfer.jsp" id="transfer_nav">Transfer</a>
             </div>
-            
+
             <div>
                 <a href="./BalanceDetails" id="balance_nav">Balance</a>
             </div>
@@ -23,7 +22,7 @@
             <div>
                 <a href="./history.jsp" id="history_nav">History</a>
             </div>
-            
+
             <div>
                 <a href="./chart.jsp" id="chart_nav">Chart</a>
             </div>

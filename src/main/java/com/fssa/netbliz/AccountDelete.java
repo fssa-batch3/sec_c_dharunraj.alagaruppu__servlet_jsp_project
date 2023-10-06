@@ -23,8 +23,7 @@ public class AccountDelete extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public AccountDelete() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
@@ -51,7 +50,7 @@ public class AccountDelete extends HttpServlet {
 
 			}
 		} catch (ServiceException | ServletException | IOException e) {
-			
+
 			request.setAttribute("errorMsg", e.getMessage());
 			request.setAttribute("path", "./home.jsp");
 

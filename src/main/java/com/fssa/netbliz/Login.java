@@ -36,7 +36,6 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException {
 
 		long phone = Long.parseLong(request.getParameter("phone"));
-		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
 		CustomerService cusService = new CustomerService();
@@ -44,10 +43,10 @@ public class Login extends HttpServlet {
 		Customer customer = new Customer();
 
 		try {
-			if (cusService.logInCustomer(phone, email, password)) {
+			if (cusService.logInCustomer(phone, password)) {
 
 				HttpSession session = request.getSession();
-
+				
 				customer = cusService.getCustomerByPhoneNumber(phone);
 
 				session.setAttribute("customerDetails", customer);
@@ -55,19 +54,22 @@ public class Login extends HttpServlet {
 				session.setAttribute("phoneNumber", phone);
 
 				System.out.println("Customer Logged in successfully");
-				request.setAttribute("successMsg", "Customer Logged in successfully");
-				request.setAttribute("path", "./AccountDetails");
 
-				RequestDispatcher rd = request.getRequestDispatcher("./login.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("./AccountDetails");
 				rd.forward(request, response);
 
 			}
 		} catch (ServiceException | IOException | ServletException e) {
 
+			System.out.println(phone);
+			request.setAttribute("phoneNumber", phone);
+			request.setAttribute("password", password);
+			
 			request.setAttribute("errorMsg", e.getMessage());
-			RequestDispatcher rd = request.getRequestDispatcher("./login.jsp");
 			request.setAttribute("path", "./login.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("./login.jsp");
 			rd.forward(request, response);
+
 			System.out.println("Login failed");
 		}
 	}

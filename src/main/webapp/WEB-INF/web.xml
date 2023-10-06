@@ -34,6 +34,12 @@
 		<description></description>
 		<servlet-class>com.fssa.netbliz.BalanceDetails</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Chart</servlet-name>
+		<display-name>Chart</display-name>
+		<description></description>
+		<servlet-class>com.fssa.netbliz.Chart</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Netbliz</servlet-name>
 		<url-pattern>/Netbliz</url-pattern>
@@ -53,6 +59,10 @@
 	<servlet-mapping>
 		<servlet-name>BalanceDetails</servlet-name>
 		<url-pattern>/BalanceDetails</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Chart</servlet-name>
+		<url-pattern>/Chart</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

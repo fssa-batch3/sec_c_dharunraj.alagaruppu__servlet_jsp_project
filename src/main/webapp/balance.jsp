@@ -71,7 +71,8 @@
 						<div class="account_type">
 
 							<span>Minimum balance :</span>
-							<h2 id="ac_type">&#8377;<%=findAcc.getMinimumBalance()%></h2>
+							<h2 id="ac_type">
+								&#8377;<%=findAcc.getMinimumBalance()%></h2>
 						</div>
 
 					</div>
@@ -79,7 +80,8 @@
 					<div class="account_balance">
 
 						<span>Available money :</span>
-						<h1 id="balance">&#8377;<%=findAcc.getAvailableBalance()%></h1>
+						<h1 id="balance">
+							&#8377;<%=findAcc.getAvailableBalance()%></h1>
 					</div>
 
 				</div>
@@ -112,6 +114,6 @@
 			bank_details.style.display = "block";
 		}
 	</script>
-<script src="<%=request.getContextPath()%>/assets/js/hover.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/hover.js"></script>
 </body>
 </html>
