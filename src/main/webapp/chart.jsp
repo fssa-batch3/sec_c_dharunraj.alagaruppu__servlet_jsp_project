@@ -4,6 +4,7 @@
 <%@ page import="com.fssa.netbliz.model.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.time.LocalDate"%>
+<%@ page import="java.time.YearMonth"%>
 
 <!DOCTYPE html>
 <html>
@@ -62,14 +63,17 @@
 		<button type="button" onclick="restart_tab()" id="restart">Back</button>
 
 	</div>
-	<div class="calculation">
+	<div class="calculation" id="calc-scroll">
 
 		<%
-		List<Account> acc = (List<Account>) session.getAttribute("accountList");
+		Account acc = (Account) request.getAttribute("accountMin");
 		List<CronJob> list = (List<CronJob>) request.getAttribute("chart");
 		String accNo = (String) request.getAttribute("selectedAccount");
-		int sNo = 1;
 
+		YearMonth currentYearMonth = YearMonth.now();
+		// Number of days in the current month
+		int daysInMonth = currentYearMonth.lengthOfMonth();
+		int sNo = 1;
 		double sum = 0;
 		double avg = 0;
 
@@ -77,7 +81,8 @@
 		%>
 
 		<h2>
-			<strong>Calculation and your account statics : </strong>
+			<strong>Calculation and your account statistics : </strong>
+
 		</h2>
 
 		<p>MAB = (The total of end-of-the-day closing balances) / (number
@@ -111,7 +116,9 @@
 				SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 				String formattedDate = dateFormat.format(timestamp);
 				sum += cj.getAvailableBalance();
-				avg = sum / list.size();
+
+				avg = sum / daysInMonth;
+				avg = Math.round(avg * 100.0) / 100.0;
 			%>
 
 
@@ -130,7 +137,7 @@
 
 		</table>
 
-
+		<p>Using the formula, monthly average balance comes out to be:</p>
 		<p>
 			<%
 			int i = 0;
@@ -151,7 +158,7 @@
 			i = 1;
 			}
 			%>) /
-			<%=list.size()%>
+			<%=daysInMonth%>
 
 
 		</p>
@@ -160,7 +167,7 @@
 			=
 			<%=sum%>
 			/
-			<%=list.size()%>
+			<%=daysInMonth%>
 		</p>
 
 		<p>
@@ -168,9 +175,12 @@
 			<%=avg%>
 		</p>
 
-		<p>Hence, Monthly average balance is calculated</p>
-
-
+		<p>
+			Hence, the monthly average balance for this account number must be
+			above the mandated &#8377;
+			<%=acc.getMinimumBalance()%>
+			and only then will this account not be charged any penalty.
+		</p>
 		<%
 		}
 		%>
@@ -289,6 +299,18 @@
 	<jsp:include page="./successOrErrorMsg.jsp"></jsp:include>
 
 	<script type="text/javascript">
+	
+	const url = window.location.search;
+	const urlParams = new URLSearchParams(url);
+	const charAcc = Number(urlParams.get("acc"));
+	
+	if(charAcc){
+		
+		setTimeout(function() {
+		    // Scroll to the target content
+		    document.getElementById('calc-scroll').scrollIntoView({ behavior: 'smooth' });
+		  }, 700);
+	}
 
                                     const result_button = document.querySelector("#result_button");
 
@@ -312,11 +334,7 @@
 
                                         window.location.href = "./chart.jsp";
 
-                                    }
-
-
-                                </script>
-
+                                    }               
+</script>
 </body>
-
 </html>

@@ -24,7 +24,7 @@
             </div>
 
             <div>
-                <a href="./chart.jsp" id="chart_nav">Chart</a>
+                <a href="./chart.jsp" id="chart_nav">Calculations</a>
             </div>
 
             <div class="logout">

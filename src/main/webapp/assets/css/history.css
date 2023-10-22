@@ -146,8 +146,8 @@ main {
 	font-weight: 500;
 }
 
-.select_div .accounts {
-	/* margin: 5% auto; */
+.select_div .accounts , #sort {
+	margin:auto 4px;
 	padding: 10px;
 	border-radius: 8px;
 	font-size: 16px;
@@ -157,7 +157,7 @@ main {
 	color: rgb(94, 93, 93);
 }
 
-.select_div .accounts:focus {
+.select_div .accounts:focus , #sort:focus {
 	outline: none;
 	background-color: #f5f6ff;
 }
@@ -167,4 +167,7 @@ main {
 }
 #selecedArrow{
 	margin: 10px auto 0px auto;
+}
+#sort{
+	padding: 5px;
 }

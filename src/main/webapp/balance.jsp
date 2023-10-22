@@ -89,7 +89,7 @@
 				<div class="back_button">
 
 					<a href="./transfer.jsp">Transfer money</a> <a href="./balance.jsp">Back
-						balance enquire</a>
+						to balance enquire</a>
 				</div>
 
 			</div>

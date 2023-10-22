@@ -3,7 +3,6 @@ axios.get(url)
     .then(function (response) {
         // handle success
         view_history(response.data);
-        let temp
     })
     .catch(function (error) {
         // handle error
@@ -171,47 +170,31 @@ function create_div() {
 
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-  const search = document.querySelector("#search");
-  const history_search = document.querySelectorAll(".history");
+const search = document.querySelector("#search");
 
-  search.addEventListener("keyup", function(event) {
-    const value = event.target.value.toLowerCase();
-console.log("enter1")
-    history_search.forEach(function(historyItem) {
-		
-		
-      const fund_type = historyItem.querySelector(".increase").textContent.toLowerCase();
-      const date = historyItem.querySelector(".date").textContent.toLowerCase();
-      const receiver_name = historyItem.querySelector(".receiver_name").textContent.toLowerCase();
-      const balance = historyItem.querySelector(".balance_span").textContent.toLowerCase();
-      const send_money = historyItem.querySelector(".minus").textContent.toLowerCase();
-      const send_account = historyItem.querySelector(".send_account").textContent.toLowerCase();
-      const account_number = historyItem.querySelector(".receiver_num").textContent.toLowerCase();
-      const remarks = historyItem.querySelector(".remark").textContent.toLowerCase();
-console.log("enter2")
-      const shouldShow = (
-        fund_type.includes(value) ||
-        date.includes(value) ||
-        receiver_name.includes(value) ||
-        balance.includes(value) ||
-        send_money.includes(value) ||
-        account_number.includes(value) ||
-        remarks.includes(value) ||
-        send_account.includes(value)
-      );
+search.addEventListener("input", (e) => {
+    let item = search.value.trim().toLowerCase(); 
+    const fund_type = document.querySelectorAll(".history");
+   
+    let found = false;
 
-      if (shouldShow) {
-		  console.log("enter3")
-        historyItem.style.display = "block";
-      } else {
-		  console.log("enter4")
-        historyItem.style.display = "none";
-      }
+    fund_type.forEach((historyElement) => {
+        const remarksElement = historyElement.querySelector(".remark");
+        if (remarksElement) {
+            let arr = remarksElement.textContent.split(":");
+            if (!item || arr[1].toLowerCase().includes(item)) {
+                historyElement.style.display = "block";
+                found = true; 
+            } else {
+                historyElement.style.display = "none";
+            }
+        }
     });
-  });
-});
 
+    if (!found) {
+       alert("Not found");
+    }
+});
 
 const filter_div = document.querySelector(".filter");
 
@@ -225,11 +208,13 @@ filter_div.addEventListener("click", () => {
 });
 
 let select_account;
+let sort_type;
 
 const result_button = document.querySelector("#result_button");
 
 result_button.addEventListener("click", () => {
     select_account = document.getElementById("from").value.trim();
+    sort_type = document.getElementById("sort").value;
 
     if (select_account !== "") {
         search_account();
@@ -241,34 +226,64 @@ result_button.addEventListener("click", () => {
 function search_account() {
 	
 	const selectedAccount = document.querySelector('#selectedAccount').style.display = "block";
+	
+	const hisDiv = document.querySelectorAll('.history');
+	
+	const accNo = document.querySelectorAll('.history .send_data .type_fund .transfer_type .increase');
 
-    const receiverNum = document.querySelectorAll('.history .send_data .type_fund .transfer_type .reciver_num');
+    const divNum = document.querySelectorAll('.history .send_data .type_fund .transfer_type .send_account');
+    
+    if(sort_type == "all"){
+		
+		divNum.forEach((e,index)=>{
+			
+			if(select_account == e.innerHTML){
+				
+				hisDiv[index].style.display="block";
+			}else {
+				
+				hisDiv[index].style.display="none";
+			}
+			
+		})
+	}
+	
+	
+	if(sort_type == "credit"){
+		
+		divNum.forEach((e,index)=>{
+			
+			
+			if(select_account == e.innerHTML && accNo[index].innerHTML == "Received from"){
+				
+				hisDiv[index].style.display="block";
+			}else {
+				
+				hisDiv[index].style.display="none";
+			}
+		})
+		
+	}
+	
+	
+	if(sort_type == "debit"){
+		
+		divNum.forEach((e,index)=>{
+			
+			
+			if(select_account == e.innerHTML && accNo[index].innerHTML == "Sent to"){
+				
+				hisDiv[index].style.display="block";
+			}else {
+				
+				hisDiv[index].style.display="none";
+			}
+		})
+		
+	}
+	
+    
 
-    receiverNum.forEach((e) => {
-        if (select_account == e.innerHTML) {
-
-            e.closest('.history').style.display = "block"
-
-
-        }
-        else {
-            e.closest('.history').style.display = "none"
-
-        }
-    })
-
-    const senderNum = document.querySelectorAll('.history .send_data .type_fund .transfer_type .send_account');
-
-    senderNum.forEach((e) => {
-        if (select_account == e.innerHTML) {
-
-            e.closest('.history').style.display = "block"
-        }
-        else {
-
-            e.closest('.history').style.display = "none"
-        }
-    })
 }
 
 function restart_tab() {

@@ -133,3 +133,11 @@ input:focus, select:focus {
 	color:red;
 	margin:10px auto;
 }
+.textarea{
+	resize : none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

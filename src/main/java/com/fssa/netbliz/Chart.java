@@ -9,8 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fssa.netbliz.dao.AccountDAO;
 import com.fssa.netbliz.exception.ServiceException;
+import com.fssa.netbliz.model.Account;
 import com.fssa.netbliz.model.CronJob;
+import com.fssa.netbliz.service.AccountService;
 import com.fssa.netbliz.service.UpdateAverageBalanceJobSerivice;
 
 /**
@@ -35,18 +38,20 @@ public class Chart extends HttpServlet {
 			throws ServletException, IOException {
 
 		String accoutNumber = request.getParameter("acc");
-		System.out.println(accoutNumber);
 
 		UpdateAverageBalanceJobSerivice service = new UpdateAverageBalanceJobSerivice();
-
+		AccountService accService = new AccountService();
+		Account acc = new Account();
 		try {
 			List<CronJob> list = null;
 
 			list = service.getBankDetails(accoutNumber);
+			acc = accService.getAccountByNumber(accoutNumber);
 			if (list != null && !list.isEmpty()) {
 
 				request.setAttribute("chart", list);
 				request.setAttribute("selectedAccount", accoutNumber);
+				request.setAttribute("accountMin", acc);
 
 			} else {
 

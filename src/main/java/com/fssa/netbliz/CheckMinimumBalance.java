@@ -61,27 +61,24 @@ public class CheckMinimumBalance extends HttpServlet {
 		AccountService accountService = new AccountService();
 		Account acc = new Account();
 
-		
-		
-
 		try {
-			if (service.holderConditions(trans) && service.remittanceConditions(trans)
-					&& service.checkMinimumBalance(holder, amount)) {
-				session.setAttribute("transaction", trans);
-				response.sendRedirect("./MakeTransaction");
+			if (service.holderConditions(holder, amount) && service.remittanceConditions(remittance, ifsc)) {
 
-			} else {
-
-				acc = accountService.getAccountByNumber(holder);
 				session.setAttribute("transaction", trans);
-				request.setAttribute("min",acc.getMinimumBalance());
-				request.setAttribute("balance",	acc.getAvailableBalance());
-				
-				request.setAttribute("confirmMsg", "true");
-				
-				RequestDispatcher dis = request.getRequestDispatcher("./transfer.jsp");
-				dis.forward(request, response);
+				session.setAttribute("transactionRetrieve", trans);
+				if (service.checkMinimumBalance(holder, amount)) {
+					response.sendRedirect("./MakeTransaction");
+				} else {
+					acc = accountService.getAccountByNumber(holder);
+
+					request.setAttribute("min", acc.getMinimumBalance());
+					request.setAttribute("balance", acc.getAvailableBalance());
+					request.setAttribute("confirmMsg", "true");
+					RequestDispatcher dis = request.getRequestDispatcher("./transfer.jsp");
+					dis.forward(request, response);
+				}
 			}
+			
 		} catch (ServiceException | IOException e) {
 			session.setAttribute("transactionRetrieve", trans);
 			request.setAttribute("errorMsg", e.getMessage());

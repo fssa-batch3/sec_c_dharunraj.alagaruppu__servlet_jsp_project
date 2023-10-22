@@ -22,5 +22,4 @@ setTimeout(() => {
 	window.location.href="<%=path%>";
 }, 800);
 <%}%>
-	
 </script>

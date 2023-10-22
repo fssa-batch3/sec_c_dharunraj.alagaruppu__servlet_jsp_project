@@ -29,6 +29,8 @@
 		double avl_balance = (double) request.getAttribute("balance");
 		double trans_amount = Double.parseDouble(request.getParameter("amount"));
 		double remaining = avl_balance - trans_amount;
+		double minRemining = min_balance - remaining;
+		 
 	%>
 
 	<div id="delete_box">
@@ -40,10 +42,11 @@
 			</span> <br> <span id="reminder_calculation"> (Available balance
 				- Transfer amount = Remaining)<br>( <%=avl_balance%> - <%=trans_amount%>
 				= &#x20B9; <%=remaining%>)
-			</span> <br> Therefore, it is advisable to refrain from proceeding with
-			this current transaction and instead consider splitting it with
-			another account that you own. Being well-informed about the bank's
-			terms and conditions related to MAB.
+			</span> <br>If you will make this transaction your balance is (&#x20B9;
+			<%=remaining%>)<br> It will affect your today minimum balance of
+			(&#x20B9;
+			<%=minRemining%>)<br> If you have another account please split
+			and send that amount. It will maintain your MAB.
 		</p>
 		<div id="delete_box_btns">
 			<form id="delete_btn" action="./MakeTransaction" method="post">
@@ -80,16 +83,19 @@
 
 				<label for="remittance"> Receiver account number</label> <input
 					class="form-control input" type="text" id="to" name="remittance"
-					title="Remember !! Your bank account number should be 16 numbers"
+					title="Your bank account number should be between 9 and 18 digits."
+					pattern="^\d{9,18}$" minlength="9" maxlength="18"
 					aria=" Receiver Account " value="<%=remittanceAccRetrieve%>"
 					required> <label for="ifsc">Receiver IFSC code<code></code>
 				</label> <input class="form-control" type="text" id="ifsc" name="ifsc"
-					title="Are you sure !! minium Our ifsc number should be 11 numbers"
-					aria="Receiver IFSC" value="<%=remittanceIfscRetrieve%>" required>
-				<label for="amount"> Transfer amount (&#8377;) </label> <input
+					pattern="^[A-Z]{4}0[A-Z0-9]{6}$"
+					title="1. The first four digits identify the bank’s name 2.The fifth digit in the IFSC is always a zero 3.Sixth to ninth digits identify the branch of the bank 4.The tenth and eleventh digits identify the type of account"
+					maxlength="11" aria="Receiver IFSC"
+					value="<%=remittanceIfscRetrieve%>" required> <label
+					for="amount"> Transfer amount (&#8377;) </label> <input
 					class="form-control" type="number" id="amount" name="amount"
-					aria=" Transfer Amount" min="1" value="<%=transAmountRetrieve%>"
-					required>
+					aria=" Transfer Amount" min="1" maxlength="6"
+					value="<%=transAmountRetrieve%>" required>
 				<div class="form-outline w-75 mb-4">
 					<label class="form-label" for="textAreaExample6">Remarks
 						(Optional)</label>
@@ -102,19 +108,21 @@
 				%>
 				<label for="remittance"> Receiver account number</label> <input
 					class="form-control input" type="text" id="to" name="remittance"
-					title="Remember !! Your bank account number should be 16 numbers"
+					title="Your bank account number should be between 9 and 18 digits."
+					pattern="^\d{9,18}$" minlength="9" maxlength="18"
 					aria=" Receiver Account " required> <label for="ifsc">Receiver
 					IFSC code<code></code>
 				</label> <input class="form-control" type="text" id="ifsc" name="ifsc"
-					title="Are you sure !! minium Our ifsc number should be 11 numbers"
-					aria="Receiver IFSC" required> <label for="amount">
-					Transfer amount (&#8377;) </label> <input class="form-control"
-					type="number" id="amount" name="amount" aria=" Transfer Amount"
-					min="1" required>
+					pattern="^[A-Z]{4}0[A-Z0-9]{6}$"
+					title="1. The first four digits identify the bank’s name 2.The fifth digit in the IFSC is always a zero 3.Sixth to ninth digits identify the branch of the bank 4.The tenth and eleventh digits identify the type of account"
+					maxlength="11" aria="Receiver IFSC" required> <label
+					for="amount"> Transfer amount (&#8377;) </label> <input
+					class="form-control" type="number" id="amount" name="amount"
+					aria=" Transfer Amount" min="1" maxlength="6" required>
 				<div class="form-outline w-75 mb-4">
 					<label class="form-label" for="textAreaExample6">Remarks
 						(Optional)</label>
-					<textarea class="form-control textAreaExample6"
+					<textarea class="form-control textAreaExample6 textarea"
 						id="textAreaExample6" rows="2" name="textAreaExample6"></textarea>
 				</div>
 				<%

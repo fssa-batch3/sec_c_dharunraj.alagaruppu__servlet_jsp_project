@@ -84,57 +84,45 @@
 
 					<label for="accountnumber"> Account number </label> <input
 						class="form-control" name="accountnumber" type="text" id="account"
-						title="Remember !! Your bank account number should be 16 numbers"
+						title="Your bank account number should be between 9 and 18 digits."
+						pattern="^\d{9,18}$" minlength="9" maxlength="18"
 						value="<%=accNoRetrieve%>" required> <label for="ifsc">
 						IFSC code <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
 					</label> <input class="form-control" name="ifsc" type="text" id="ifsc"
-						pattern="[0-9A-Za-z]{5,15}"
-						title="Are you sure !! minimum Your ifsc number should be 12 numbers"
-						value="<%=ifscRetrieve%>" required>
-					<div class="form-check terms">
-						<input class="form-check-input" type="checkbox" id="gridCheck"
-							required> <label class="form-check-label" for="gridCheck">
-							I accept all terms and conditions</label>
-					</div>
-
-					<p>"Remember, if you click the 'Link Bank' button, all your
-						data will be purchased by your bank will be linked with the
-						Netbliz application. Once you link with Netbliz, you can continue
-						transactions within the application using this platform, and your
-						minimum balance tracker will start properly."</p>
-
-					<input class="btn btn-primary" type="submit" value="Link your bank">
+						pattern="^[A-Z]{4}0[A-Z0-9]{6}$"
+						title="1. The first four digits identify the bank name 2.The fifth digit in the IFSC is always a zero 3.Sixth to ninth digits identify the branch of the bank 4.The tenth and eleventh digits identify the type of account"
+						maxlength="11" value="<%=ifscRetrieve%>" required>
 
 					<%
 					} else {
 					%>
 					<label for="accountnumber"> Account number </label> <input
 						class="form-control" name="accountnumber" type="text" id="account"
-						title="Remember !! Your bank account number should be 16 numbers"
-						required> <label for="ifsc"> IFSC code <i
+						title="Your bank account number should be between 9 and 18 digits."
+						pattern="^\d{9,18}$" minlength="9" maxlength="18" required>
+					<label for="ifsc"> IFSC code <i
 						class="fa fa-exclamation-triangle" aria-hidden="true"></i>
 					</label> <input class="form-control" name="ifsc" type="text" id="ifsc"
-						pattern="[0-9A-Za-z]{5,15}"
-						title="Are you sure !! minimum Your ifsc number should be 12 numbers"
-						required>
+						pattern="^[A-Z]{4}0[A-Z0-9]{6}$"
+						title="1. The first four digits identify the bank name 2.The fifth digit in the IFSC is always a zero 3.Sixth to ninth digits identify the branch of the bank 4.The tenth and eleventh digits identify the type of account"
+						maxlength="11" required>
+
+
+					<%
+					}
+					%>
 					<div class="form-check terms">
 						<input class="form-check-input" type="checkbox" id="gridCheck"
 							required> <label class="form-check-label" for="gridCheck">
 							I accept all terms and conditions</label>
 					</div>
-
 					<p>"Remember, if you click the 'Link Bank' button, all your
 						data will be purchased by your bank will be linked with the
-						Netbliz application. Once you link with Netbliz, you can continue
+						netbliz application. Once you link with Netbliz, you can continue
 						transactions within the application using this platform, and your
 						minimum balance tracker will start properly."</p>
 
 					<input class="btn btn-primary" type="submit" value="Link your bank">
-
-					<%
-					}
-					%>
-
 				</form>
 
 			</div>

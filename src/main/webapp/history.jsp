@@ -28,8 +28,7 @@
 
 			</div>
 
-			<b><span id="selectedAccount">Selected account
-					transactions below : </span></b>
+			<b><span id="selectedAccount"> </span></b>
 
 			<div class="right_filter">
 
@@ -49,6 +48,12 @@
 					<select class="form-select accounts" id="from" required>
 
 						<jsp:include page="./dropDownAccountNumber.jsp"></jsp:include>
+
+					</select> <select id="sort">
+
+						<option value="all">All</option>
+						<option value="credit">Credited</option>
+						<option value="debit">Debited</option>
 
 					</select>
 

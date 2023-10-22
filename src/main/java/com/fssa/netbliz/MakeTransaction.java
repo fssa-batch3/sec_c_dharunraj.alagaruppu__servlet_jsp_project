@@ -60,24 +60,17 @@ public class MakeTransaction extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("./transfer.jsp");
 				rd.forward(request, response);
 
-				System.out.println("Transaction success");
-
 				session.removeAttribute("transaction");
 				session.removeAttribute("transactionRetrieve");
 			}
 		} catch (ServiceException | IOException e) {
-			
-
 			request.setAttribute("errorMsg", e.getMessage());
 			request.setAttribute("path", "./transfer.jsp");
 
 			RequestDispatcher rd = request.getRequestDispatcher("./transfer.jsp");
 			rd.forward(request, response);
-
-			System.out.println("transaction failed");
 		}
 
-		//
 	}
 
 }
